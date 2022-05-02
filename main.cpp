@@ -5,30 +5,9 @@
 using namespace std;
 
 const int N = 20;
-int WALL = 9999;int map[N][N] = {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL,WALL,WALL,WALL,WALL,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, WALL, WALL, WALL, WALL, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL, -1, -1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
-                                 WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL, WALL };
+int WALL = 9999;
 
-//vector<pair<int, int> > wave;
-
-void display(vector<pair<int, int>> wave) {
+void display(vector<pair<int, int>> wave, int **map) {
     for (vector<pair<int, int> >::iterator i = wave.begin(); i != wave.end(); ++i)
     {
         map[i->first][i->second] = -100;
@@ -47,7 +26,7 @@ void display(vector<pair<int, int>> wave) {
     }
 }
 
-void create_map() {
+void create_map(int ** map) {
     for(int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if(rand() % 8 == 0) {
@@ -66,7 +45,7 @@ void create_map() {
     }
 }
 
-vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targetY) {
+vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targetY, int ** map) {
     map[targetX][targetY] = -1;
     vector<pair<int, int> > oldWave;
     vector<pair<int, int> > wave;
@@ -115,14 +94,21 @@ vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targ
 
 int main() {
     const int ESCAPE = 27;
+    int ** map = new int *[N];
+    for (int i = 0; i < N; i++) {
+        map[i] = new int[N];
+    }
     while(true) {
         system("cls");
-        create_map();
-        vector<pair<int, int>> path = get_path(1, 1, 5, 5);
-        display(path);
+        create_map(map);
+        vector<pair<int, int>> path = get_path(1, 1, 5, 5, map);
+        display(path, map);
         if (getch() == ESCAPE) {
             break;
         }
     }
-
+    for(int i = 0; i < N; i++) {
+        delete []map[i];
+    }
+    delete []map;
 }
