@@ -46,12 +46,11 @@ void create_map(int ** map) {
 }
 
 vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targetY, int ** map) {
-    map[targetX][targetY] = -1;
     vector<pair<int, int> > oldWave;
     vector<pair<int, int> > wave;
     oldWave.push_back(pair<int, int>(originX, originY));
     int nstep = 0;
-    map[originX][originY] = nstep;
+    map[originY][originX] = nstep;
     const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
     const int dy[] = {-1, 0, 1, 0, -1, 1, -1, 1};
     bool find = true;
@@ -62,9 +61,9 @@ vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targ
             for (int d = 0; d < 8; ++d) {
                 int nx = i->first + dx[d];
                 int ny = i->second + dy[d];
-                if (map[nx][ny] == -1) {
+                if (map[ny][nx] == -1) {
                     wave.push_back(pair<int, int>(nx, ny));
-                    map[nx][ny] = nstep;
+                    map[ny][nx] = nstep;
                     if (nx == targetX && ny == targetY) {
                         find = false;
                         break;
@@ -101,7 +100,7 @@ int main() {
     while(true) {
         system("cls");
         create_map(map);
-        vector<pair<int, int>> path = get_path(1, 1, 5, 5, map);
+        vector<pair<int, int>> path = get_path(5, 1, 5, 5, map);
         display(path, map);
         if (getch() == ESCAPE) {
             break;
