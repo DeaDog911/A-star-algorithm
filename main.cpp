@@ -26,9 +26,9 @@ int WALL = 9999;int map[N][N] = {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL,
                                  WALL, -1, -1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1,-1,-1,-1,WALL,
                                  WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL,WALL, WALL };
 
-vector<pair<int, int> > wave;
+//vector<pair<int, int> > wave;
 
-void display() {
+void display(vector<pair<int, int>> wave) {
     for (vector<pair<int, int> >::iterator i = wave.begin(); i != wave.end(); ++i)
     {
         map[i->first][i->second] = -100;
@@ -66,9 +66,10 @@ void create_map() {
     }
 }
 
-void find_path(int originX, int originY, int targetX, int targetY) {
+vector<pair<int, int> > get_path(int originX, int originY, int targetX, int targetY) {
     map[targetX][targetY] = -1;
     vector<pair<int, int> > oldWave;
+    vector<pair<int, int> > wave;
     oldWave.push_back(pair<int, int>(originX, originY));
     int nstep = 0;
     map[originX][originY] = nstep;
@@ -109,6 +110,7 @@ void find_path(int originX, int originY, int targetX, int targetY) {
             }
         }
     }
+    return wave;
 }
 
 int main() {
@@ -116,8 +118,8 @@ int main() {
     while(true) {
         system("cls");
         create_map();
-        find_path(2, 3, 10, 5);
-        display();
+        vector<pair<int, int>> path = get_path(1, 1, 5, 5);
+        display(path);
         if (getch() == ESCAPE) {
             break;
         }

@@ -1,5 +1,7 @@
 # ninja log v5
-0	787	6731887580893255	CMakeFiles/A_star.dir/main.cpp.obj	572fc6e551fea8aa
-789	1017	6731887583213323	A_star.exe	fc169799d5cbb82d
 4	570	6731889676301008	CMakeFiles/A_star.dir/main.cpp.obj	572fc6e551fea8aa
 570	867	6731889678280919	A_star.exe	fc169799d5cbb82d
+2	638	6731905382145765	CMakeFiles/A_star.dir/main.cpp.obj	572fc6e551fea8aa
+638	813	6731905383895550	A_star.exe	fc169799d5cbb82d
+3	1081	6731947382183657	CMakeFiles/A_star.dir/main.cpp.obj	572fc6e551fea8aa
+1082	1233	6731947383699895	A_star.exe	fc169799d5cbb82d
